@@ -5,17 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tetris</title>
   </head>
-  <body style="background-color: black">
-    <canvas
-      id="board"
+  <body
+    style="
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 95vh;
+    "
+  >
+    <div
       style="
-        border: 1px solid white;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
+        max-width: 1200px;
+        background-color: black;
+        display: grid;
+        grid-template-columns: 400px 400px 400px;
       "
-    ></canvas>
+    >
+      <canvas
+        id="score"
+        style="border: 1px solid white; justify-self: end; margin: 0 30px"
+      ></canvas>
+      <canvas
+        id="board"
+        style="border: 1px solid white; justify-self: center; margin: 0 30px"
+      ></canvas>
+      <div>
+        <h1
+          style="
+            color: white;
+            margin: 0 15px 10px 15px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          "
+        >
+          Next up:
+        </h1>
+        <canvas
+          id="queue"
+          style="border: 1px solid white; justify-self: start; margin: 0 30px"
+        ></canvas>
+      </div>
+    </div>
   </body>
   <script src="./js/init.js"></script>
   <script src="./js/pieces.js"></script>

@@ -1,3 +1,6 @@
+// ===============================
+// GAME-BOARD
+
 const canvas = document.getElementById("board");
 const pen = canvas.getContext("2d");
 
@@ -18,5 +21,25 @@ for (let y = 0; y < BOARD_HEIGHT; y++) {
   board.push([]);
   for (let x = 0; x < BOARD_WIDTH; x++) {
     board[y].push(0);
+  }
+}
+
+// ===============================
+// QUEUE
+
+const queue = document.getElementById("queue");
+const queuePen = queue.getContext("2d");
+
+queue.style.background = "black";
+queue.width = 80;
+queue.height = 200;
+
+const tetraminoQueue = [];
+const queueBoard = [];
+
+for (let y = 0; y < 16; y++) {
+  queueBoard.push([]);
+  for (let x = 0; x < 4; x++) {
+    queueBoard[y].push(0);
   }
 }

@@ -1,6 +1,7 @@
 function animate() {
+  populateTetraminoQueue();
   if (currentTetramino === null) {
-    getRandomTetramino();
+    getNextTetramino();
   }
 
   resetBoard();
@@ -8,6 +9,7 @@ function animate() {
   checkForClears();
 
   pen.clearRect(0, 0, canvas.width, canvas.height);
+  queuePen.clearRect(0, 0, queue.width, queue.height);
   draw();
   drawProjection();
   window.requestAnimationFrame(animate);
