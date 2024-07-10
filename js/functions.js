@@ -160,6 +160,7 @@ function resetBoard() {
 function getNextTetramino() {
   currentTetramino = tetraminoQueue.shift();
   projection = structuredClone(currentTetramino);
+  usedHold = false;
 }
 
 function populateTetraminoQueue() {

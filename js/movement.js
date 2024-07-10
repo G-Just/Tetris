@@ -27,6 +27,21 @@ window.addEventListener("keydown", (event) => {
   if (event.code === "ArrowUp") {
     rotate(currentTetramino.position, currentTetramino.name);
   }
+  if (event.code === "ShiftRight" || event.code === "ShiftLeft") {
+    if (!usedHold) {
+      if (holdQueue.length === 1) {
+        holdQueue.push(currentTetramino);
+        currentTetramino = holdQueue.shift();
+      } else {
+        holdQueue.push(currentTetramino);
+        currentTetramino = null;
+      }
+      usedHold = true;
+    }
+  }
+  if (event.code === "Space") {
+    projection.position.forEach((coord, idx) => (currentTetramino.position[idx] = coord));
+  }
 });
 
 window.addEventListener("keyup", (event) => {

@@ -32,14 +32,35 @@ const queuePen = queue.getContext("2d");
 
 queue.style.background = "black";
 queue.width = 80;
-queue.height = 200;
+queue.height = 240;
 
 const tetraminoQueue = [];
 const queueBoard = [];
 
-for (let y = 0; y < 16; y++) {
+for (let y = 0; y < 12; y++) {
   queueBoard.push([]);
   for (let x = 0; x < 4; x++) {
     queueBoard[y].push(0);
+  }
+}
+
+// ===============================
+// HOLD
+
+const hold = document.getElementById("hold");
+const holdPen = hold.getContext("2d");
+
+hold.style.background = "black";
+hold.width = 160;
+hold.height = 160;
+
+const holdBoard = [];
+const holdQueue = [];
+let usedHold = false;
+
+for (let y = 0; y < 4; y++) {
+  holdBoard.push([]);
+  for (let x = 0; x < 4; x++) {
+    holdBoard[y].push(0);
   }
 }
