@@ -117,6 +117,65 @@ function draw() {
       }
     });
   });
+
+  holdBoard.forEach((row, idxY) => {
+    row.forEach((col, idxX) => {
+      switch (holdBoard[idxY][idxX]) {
+        case 0:
+          holdPen.strokeStyle = "black";
+          holdPen.strokeRect(idxX * 40, idxY * 40, 40, 40);
+          break;
+        case 1:
+          holdPen.strokeStyle = "black";
+          holdPen.fillStyle = tetraminos[0].color;
+          holdPen.fillRect(idxX * 40, idxY * 40, 40, 40);
+          holdPen.strokeRect(idxX * 40, idxY * 40, 40, 40);
+          break;
+        case 2:
+          holdPen.strokeStyle = "black";
+          holdPen.fillStyle = tetraminos[1].color;
+          holdPen.fillRect(idxX * 40, idxY * 40, 40, 40);
+          holdPen.strokeRect(idxX * 40, idxY * 40, 40, 40);
+          break;
+        case 3:
+          holdPen.strokeStyle = "black";
+          holdPen.fillStyle = tetraminos[2].color;
+          holdPen.fillRect(idxX * 40, idxY * 40, 40, 40);
+          holdPen.strokeRect(idxX * 40, idxY * 40, 40, 40);
+          break;
+        case 4:
+          holdPen.strokeStyle = "black";
+          holdPen.fillStyle = tetraminos[3].color;
+          holdPen.fillRect(idxX * 40, idxY * 40, 40, 40);
+          holdPen.strokeRect(idxX * 40, idxY * 40, 40, 40);
+          break;
+        case 5:
+          holdPen.strokeStyle = "black";
+          holdPen.fillStyle = tetraminos[4].color;
+          holdPen.fillRect(idxX * 40, idxY * 40, 40, 40);
+          holdPen.strokeRect(idxX * 40, idxY * 40, 40, 40);
+          break;
+        case 6:
+          holdPen.strokeStyle = "black";
+          holdPen.fillStyle = tetraminos[5].color;
+          holdPen.fillRect(idxX * 40, idxY * 40, 40, 40);
+          holdPen.strokeRect(idxX * 40, idxY * 40, 40, 40);
+          break;
+        case 7:
+          holdPen.strokeStyle = "black";
+          holdPen.fillStyle = tetraminos[6].color;
+          holdPen.fillRect(idxX * 40, idxY * 40, 40, 40);
+          holdPen.strokeRect(idxX * 40, idxY * 40, 40, 40);
+          break;
+        default:
+          holdPen.strokeStyle = "black";
+          holdPen.fillStyle = currentTetramino.color;
+          holdPen.fillRect(idxX * 40, idxY * 40, 40, 40);
+          holdPen.strokeRect(idxX * 40, idxY * 40, 40, 40);
+          break;
+      }
+    });
+  });
 }
 
 function resetBoard() {
@@ -153,6 +212,13 @@ function resetBoard() {
   queueBoard.forEach((row, idxY) => {
     row.forEach((col, idxX) => {
       queueBoard[idxY][idxX] = 0;
+    });
+  });
+
+  holdBoard.forEach((row, idxY) => {
+    row.forEach((col, idxX) => {
+      holdBoard[idxY][idxX] = 0;
+      console.log(holdBoard);
     });
   });
 }
@@ -199,6 +265,12 @@ function nextFrame() {
       (coord) => (queueBoard[coord[0] + idx * 4][coord[1]] = piece.id)
     );
   });
+
+  if (holdQueue.length !== 0) {
+    holdQueue[0].queuePosition.forEach(
+      (coord) => (holdBoard[coord[0]][coord[1]] = holdQueue[0].id)
+    );
+  }
 }
 
 function checkForClears() {

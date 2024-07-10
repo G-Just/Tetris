@@ -10,6 +10,7 @@ function animate() {
 
   pen.clearRect(0, 0, canvas.width, canvas.height);
   queuePen.clearRect(0, 0, queue.width, queue.height);
+  holdPen.clearRect(0, 0, hold.width, hold.height);
   draw();
   drawProjection();
   window.requestAnimationFrame(animate);
