@@ -218,7 +218,6 @@ function resetBoard() {
   holdBoard.forEach((row, idxY) => {
     row.forEach((col, idxX) => {
       holdBoard[idxY][idxX] = 0;
-      console.log(holdBoard);
     });
   });
 }

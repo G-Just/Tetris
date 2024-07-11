@@ -30,13 +30,13 @@ window.addEventListener("keydown", (event) => {
   if (event.code === "ShiftRight" || event.code === "ShiftLeft") {
     if (!usedHold) {
       if (holdQueue.length === 1) {
-        holdQueue.push(currentTetramino);
+        holdQueue.push(tetraminos.find((piece) => piece.id === currentTetramino.id));
         currentTetramino = holdQueue.shift();
       } else {
-        holdQueue.push(currentTetramino);
+        holdQueue.push(tetraminos.find((piece) => piece.id === currentTetramino.id));
         currentTetramino = null;
       }
-      usedHold = true;
+      usedHold = !usedHold;
     }
   }
   if (event.code === "Space") {
