@@ -28,15 +28,16 @@ window.addEventListener("keydown", (event) => {
     rotate(currentTetramino.position, currentTetramino.name);
   }
   if (event.code === "ShiftRight" || event.code === "ShiftLeft") {
-    if (!usedHold) {
+    if (usedHold === false) {
       if (holdQueue.length === 1) {
+        TempCurrentTetramino = holdQueue.shift();
         holdQueue.push(tetraminos.find((piece) => piece.id === currentTetramino.id));
-        currentTetramino = holdQueue.shift();
+        currentTetramino = TempCurrentTetramino;
       } else {
         holdQueue.push(tetraminos.find((piece) => piece.id === currentTetramino.id));
         currentTetramino = null;
       }
-      usedHold = !usedHold;
+      usedHold = true;
     }
   }
   if (event.code === "Space") {

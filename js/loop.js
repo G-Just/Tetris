@@ -1,4 +1,10 @@
 function animate() {
+  let debugQueue = [];
+  tetraminoQueue.forEach((piece) => debugQueue.push(piece.name));
+  console.log(`Current Tetramino: ${currentTetramino?.name}\n
+    Hold: ${holdQueue[0]?.name}\n
+    Queue: ${debugQueue.join(", ")}`);
+
   populateTetraminoQueue();
   if (currentTetramino === null) {
     getNextTetramino();
@@ -8,11 +14,10 @@ function animate() {
   nextFrame();
   checkForClears();
 
-  pen.clearRect(0, 0, canvas.width, canvas.height);
-  queuePen.clearRect(0, 0, queue.width, queue.height);
-  holdPen.clearRect(0, 0, hold.width, hold.height);
+  clearCanvases();
   draw();
   drawProjection();
+
   window.requestAnimationFrame(animate);
 }
 
