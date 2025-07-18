@@ -3,7 +3,9 @@ import { Tetramino, TetraminoType } from "./Tetramino.js";
 export class Queue {
     private _queueLength: number = 5;
     private _stack: Tetramino[] = [];
-    private _nextTetramino: Tetramino;
+    private _nextTetramino: Tetramino | null = null;
+    private _holdTetramino: Tetramino | null = null;
+    private _swappedHold: boolean = false;
 
     constructor() {
         for (let i = 0; i < this._queueLength; i++) {
@@ -20,6 +22,15 @@ export class Queue {
         return new Tetramino(
             TetraminoType[tetraminoTypes[Math.floor(Math.random() * tetraminoTypeLength)]]
         );
+    }
+
+    public takeNextTetramino() {
+        const nextTetramino = this._stack.shift();
+
+        this._nextTetramino = this._stack[0];
+        this._stack.push(this.getRandomTetramino());
+
+        return nextTetramino;
     }
 
     get nextTetramino(): Tetramino {

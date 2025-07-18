@@ -19,10 +19,10 @@ export enum TetraminoColor {
 }
 
 enum Orientation {
-    north = "north",
-    east = "east",
-    south = "south",
-    west = "west",
+    north,
+    east,
+    south,
+    west,
 }
 
 export class Tetramino {
@@ -30,15 +30,58 @@ export class Tetramino {
     private _orientation: Orientation = Orientation.north;
     private _color: TetraminoColor;
     private _shape: number[][];
+    private _position: { x: number; y: number };
+    private _projectionPosition: { x: number; y: number };
 
     constructor(type: TetraminoType) {
         this._type = type;
         this._color = TetraminoColor[type];
         this._shape = SHAPES[this._type][this._orientation];
+        this._position = { x: 3, y: 0 };
     }
 
-    get color(): string {
+    public rotateClockwise() {
+        this._orientation = (this._orientation + 1) % 4;
+        this._shape = SHAPES[this._type][this._orientation];
+    }
+
+    public rotateCounterClockwise() {
+        this._orientation = (this._orientation + 3) % 4;
+        this._shape = SHAPES[this._type][this._orientation];
+    }
+
+    public getRotatedShape(direction: "clockwise" | "counterclockwise"): number[][] {
+        return SHAPES[this._type][(this._orientation + 3) % 4];
+    }
+
+    public incrementPosition(x: number, y: number): void {
+        this._position.x += x;
+        this._position.y += y;
+    }
+
+    public setPosition(x: number, y: number): void {
+        this._position.x = x;
+        this._position.y = y;
+    }
+
+    public setProjectionPosition(x: number, y: number) {
+        this._projectionPosition = { x: x, y: y };
+    }
+
+    get color(): TetraminoColor {
         return this._color;
+    }
+
+    get projectionPosition(): { x: number; y: number } {
+        return this._projectionPosition;
+    }
+
+    get position(): { x: number; y: number } {
+        return this._position;
+    }
+
+    get type(): TetraminoType {
+        return this._type;
     }
 
     get shape(): number[][] {
@@ -46,187 +89,187 @@ export class Tetramino {
     }
 }
 
-const SHAPES: Record<TetraminoType, Record<Orientation, number[][]>> = {
-    I: {
-        north: [
+const SHAPES: Record<TetraminoType, number[][][]> = {
+    I: [
+        [
+            [1, 1, 1, 1],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+        ],
+        [
+            [0, 0, 1, 0],
+            [0, 0, 1, 0],
+            [0, 0, 1, 0],
+            [0, 0, 1, 0],
+        ],
+        [
             [0, 0, 0, 0],
             [1, 1, 1, 1],
             [0, 0, 0, 0],
             [0, 0, 0, 0],
         ],
-        east: [
-            [0, 0, 1, 0],
-            [0, 0, 1, 0],
-            [0, 0, 1, 0],
-            [0, 0, 1, 0],
-        ],
-        south: [
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [1, 1, 1, 1],
-            [0, 0, 0, 0],
-        ],
-        west: [
+        [
             [0, 1, 0, 0],
             [0, 1, 0, 0],
             [0, 1, 0, 0],
             [0, 1, 0, 0],
         ],
-    },
-    O: {
-        north: [
+    ],
+    O: [
+        [
             [0, 1, 1, 0],
             [0, 1, 1, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0],
         ],
-        east: [
+        [
             [0, 1, 1, 0],
             [0, 1, 1, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0],
         ],
-        south: [
+        [
             [0, 1, 1, 0],
             [0, 1, 1, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0],
         ],
-        west: [
+        [
             [0, 1, 1, 0],
             [0, 1, 1, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0],
         ],
-    },
-    T: {
-        north: [
+    ],
+    T: [
+        [
             [0, 1, 0, 0],
             [1, 1, 1, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0],
         ],
-        east: [
+        [
             [0, 1, 0, 0],
             [0, 1, 1, 0],
             [0, 1, 0, 0],
             [0, 0, 0, 0],
         ],
-        south: [
+        [
             [0, 0, 0, 0],
             [1, 1, 1, 0],
             [0, 1, 0, 0],
             [0, 0, 0, 0],
         ],
-        west: [
+        [
             [0, 1, 0, 0],
             [1, 1, 0, 0],
             [0, 1, 0, 0],
             [0, 0, 0, 0],
         ],
-    },
-    S: {
-        north: [
+    ],
+    S: [
+        [
             [0, 1, 1, 0],
             [1, 1, 0, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0],
         ],
-        east: [
+        [
             [0, 1, 0, 0],
             [0, 1, 1, 0],
             [0, 0, 1, 0],
             [0, 0, 0, 0],
         ],
-        south: [
+        [
             [0, 0, 0, 0],
             [0, 1, 1, 0],
             [1, 1, 0, 0],
             [0, 0, 0, 0],
         ],
-        west: [
+        [
             [1, 0, 0, 0],
             [1, 1, 0, 0],
             [0, 1, 0, 0],
             [0, 0, 0, 0],
         ],
-    },
-    Z: {
-        north: [
+    ],
+    Z: [
+        [
             [1, 1, 0, 0],
             [0, 1, 1, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0],
         ],
-        east: [
+        [
             [0, 0, 1, 0],
             [0, 1, 1, 0],
             [0, 1, 0, 0],
             [0, 0, 0, 0],
         ],
-        south: [
+        [
             [0, 0, 0, 0],
             [1, 1, 0, 0],
             [0, 1, 1, 0],
             [0, 0, 0, 0],
         ],
-        west: [
+        [
             [0, 1, 0, 0],
             [1, 1, 0, 0],
             [1, 0, 0, 0],
             [0, 0, 0, 0],
         ],
-    },
-    J: {
-        north: [
+    ],
+    J: [
+        [
             [1, 0, 0, 0],
             [1, 1, 1, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0],
         ],
-        east: [
+        [
             [0, 1, 1, 0],
             [0, 1, 0, 0],
             [0, 1, 0, 0],
             [0, 0, 0, 0],
         ],
-        south: [
+        [
             [0, 0, 0, 0],
             [1, 1, 1, 0],
             [0, 0, 1, 0],
             [0, 0, 0, 0],
         ],
-        west: [
+        [
             [0, 1, 0, 0],
             [0, 1, 0, 0],
             [1, 1, 0, 0],
             [0, 0, 0, 0],
         ],
-    },
-    L: {
-        north: [
+    ],
+    L: [
+        [
             [0, 0, 1, 0],
             [1, 1, 1, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0],
         ],
-        east: [
+        [
             [0, 1, 0, 0],
             [0, 1, 0, 0],
             [0, 1, 1, 0],
             [0, 0, 0, 0],
         ],
-        south: [
+        [
             [0, 0, 0, 0],
             [1, 1, 1, 0],
             [1, 0, 0, 0],
             [0, 0, 0, 0],
         ],
-        west: [
+        [
             [1, 1, 0, 0],
             [0, 1, 0, 0],
             [0, 1, 0, 0],
             [0, 0, 0, 0],
         ],
-    },
+    ],
 };
